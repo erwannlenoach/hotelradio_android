@@ -11,10 +11,9 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 const Player = () => {
   const [displayBtnPlay, setDisplayBtnPlay] = useState(true);
-  useEffect(() => {console.log(displayBtnPlay)})
+ 
 
-
-    var track = {
+    let track = {
       url: 'https://radio2.pro-fhi.net/radio/9111/stream.mp3', 
       title: 'Hotel Radio',
       artist: 'Hotel Radio',
@@ -25,6 +24,16 @@ const Player = () => {
         'https://hotelradioparis.com/wp-content/uploads/2021/03/LogoELE.png',
       duration: 402, // Duration in seconds
     };
+
+    TrackPlayer.updateOptions({
+      stopWithApp: false,
+      capabilities: [TrackPlayer.CAPABILITY_PLAY, TrackPlayer.CAPABILITY_PAUSE, TrackPlayer.CAPABILITY_STOP, ],
+      compactCapabilities: [
+        TrackPlayer.CAPABILITY_PLAY,
+        TrackPlayer.CAPABILITY_PAUSE,
+        TrackPlayer.CAPABILITY_STOP,
+      ],
+    });
     
   const start = () => {
     TrackPlayer.destroy()
