@@ -1,64 +1,112 @@
 import React, {useEffect, useState} from 'react';
-import TrackPlayer, { State,
-  Capability,
-  PitchAlgorithm,
-  RatingType,
-  Event,
-  RepeatMode} from 'react-native-track-player';
-import {View, StyleSheet} from 'react-native';
+import TrackPlayer, {
+  useTrackPlayerEvents,
+  TrackPlayerEvents,
+  STATE_PLAYING,
+  play,
+} from 'react-native-track-player';
+import {View, StyleSheet, Button} from 'react-native';
 import {faPlay, faPause} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
+const events = [
+  TrackPlayerEvents.PLAYBACK_STATE,
+  TrackPlayerEvents.PLAYBACK_ERROR,
+];
+
 const Player = () => {
   const [displayBtnPlay, setDisplayBtnPlay] = useState(true);
- 
+  const [playerState, setPlayerState] = useState(null);
 
-    let track = {
-      url: 'https://radio2.pro-fhi.net/radio/9111/stream.mp3', 
-      title: 'Hotel Radio',
-      artist: 'Hotel Radio',
-      album: 'Hotel Radio',
-      genre: 'Hip-Hop, Electro',
-      date: '2014-05-20T07:00:00+00:00', 
-      artwork:
-        'https://hotelradioparis.com/wp-content/uploads/2021/03/LogoELE.png',
-      duration: 402, // Duration in seconds
-    };
+  useTrackPlayerEvents(events, event => {
+    if (event.type === TrackPlayerEvents.PLAYBACK_ERROR) {
+      console.warn('An error occured while playing the current track.');
+    }
+    if (event.type === TrackPlayerEvents.PLAYBACK_STATE) {
+      setPlayerState(event.state);
+    }
+  });
 
-    TrackPlayer.updateOptions({
-      stopWithApp: false,
-      capabilities: [TrackPlayer.CAPABILITY_PLAY, TrackPlayer.CAPABILITY_PAUSE, TrackPlayer.CAPABILITY_STOP, ],
-      compactCapabilities: [
-        TrackPlayer.CAPABILITY_PLAY,
-        TrackPlayer.CAPABILITY_PAUSE,
-        TrackPlayer.CAPABILITY_STOP,
-      ],
-    });
-    
-  const start = () => {
-    TrackPlayer.destroy()
-    setDisplayBtnPlay(true)
-    console.log("start")
-    TrackPlayer.add([track]);
-  
-    TrackPlayer.play();
-    setDisplayBtnPlay(false)
-    
+  const isPlaying = playerState === STATE_PLAYING;
+
+  let track = {
+    url: 'https://radio2.pro-fhi.net/radio/9111/stream.mp3',
+    title: 'Hotel Radio',
+    artist: 'Hotel Radio',
+    album: 'Hotel Radio',
+    genre: 'Hip-Hop, Electro',
+    date: '2014-05-20T07:00:00+00:00',
+    artwork:
+      'https://hotelradioparis.com/wp-content/uploads/2021/03/LogoELE.png',
+    duration: 402, // Duration in seconds
   };
 
-  const stop = async () => {
-    console.log("stop")
-    TrackPlayer.stop();
-    TrackPlayer.destroy()
-   setDisplayBtnPlay(true)
+  TrackPlayer.updateOptions({
+    stopWithApp: false,
+    capabilities: [
+      TrackPlayer.CAPABILITY_PLAY,
+      TrackPlayer.CAPABILITY_PAUSE,
+      TrackPlayer.CAPABILITY_STOP,
+    ],
+    compactCapabilities: [
+      TrackPlayer.CAPABILITY_PLAY,
+      TrackPlayer.CAPABILITY_PAUSE,
+      TrackPlayer.CAPABILITY_STOP,
+    ],
+  });
 
+  const start = () => {
+    TrackPlayer.destroy();
+    setDisplayBtnPlay(true);
+    console.log(isPlaying);
+    console.log(playerState);
+    TrackPlayer.add([track]);
+
+    TrackPlayer.play();
+    setDisplayBtnPlay(false);
+  };
+
+  const reset = async () => {
+    console.log(isPlaying);
+    TrackPlayer.stop();
+    TrackPlayer.destroy();
+    TrackPlayer.add([track]);
+    TrackPlayer.play();
+    setDisplayBtnPlay(true);
+  };
+
+  const pause = () => {
+    TrackPlayer.pause();
+    console.log(isPlaying);
+    console.log(playerState);
+    setDisplayBtnPlay(true);
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.buttonDiv}>
-      <FontAwesomeIcon icon={faPlay} size={40} style={styles.Btn} onPress={start} display={displayBtnPlay ? 'flex' : 'none'} />
-      <FontAwesomeIcon icon={faPause} size={40} style={styles.Btn} onPress={stop} display={!displayBtnPlay ? 'flex' : 'none'} />
+      <View style={styles.buttonView}>
+        <FontAwesomeIcon
+          icon={faPlay}
+          size={40}
+          style={styles.Btn}
+          onPress={start}
+          display={!isPlaying ? 'flex' : 'none'}
+        />
+        <FontAwesomeIcon
+          icon={faPause}
+          size={40}
+          style={styles.Btn}
+          onPress={pause}
+          display={isPlaying ? 'flex' : 'none'}
+        />
+      </View>
+      <View style={styles.liveView}>
+        <Button
+          style={styles.button}
+          title="Live"
+          color="#841584"
+          onPress={reset}
+        />
       </View>
     </View>
   );
@@ -73,9 +121,13 @@ const styles = StyleSheet.create({
   Btn: {
     alignSelf: 'center',
     color: 'white',
-    position: 'absolute', 
+    position: 'absolute',
   },
-  buttonDiv: {
+  buttonLive: {
+    paddingTop: 10,
+  },
+  buttonView: {
+    margin: 10,
     height: 100,
     width: 100,
     backgroundColor: 'transparent',
@@ -84,8 +136,8 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     borderColor: 'white',
     justifyContent: 'center',
-    alignItems: 'center'
-
-  }
+    alignItems: 'center',
+    paddingBottom: 10,
+  },
 });
 export default Player;

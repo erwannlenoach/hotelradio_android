@@ -28,7 +28,7 @@ const Cover = () => {
         source={{
           uri: url,
         }}
-        opacity={0.9}
+        opacity={0.6}
       />
     </View>
   );
