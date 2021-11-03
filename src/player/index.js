@@ -3,7 +3,6 @@ import TrackPlayer, {
   useTrackPlayerEvents,
   TrackPlayerEvents,
   STATE_PLAYING,
-  play,
 } from 'react-native-track-player';
 import {View, StyleSheet, Button} from 'react-native';
 import {faPlay, faPause} from '@fortawesome/free-solid-svg-icons';
@@ -15,7 +14,6 @@ const events = [
 ];
 
 const Player = () => {
-  const [displayBtnPlay, setDisplayBtnPlay] = useState(true);
   const [playerState, setPlayerState] = useState(null);
 
   useTrackPlayerEvents(events, event => {
@@ -56,14 +54,9 @@ const Player = () => {
   });
 
   const start = () => {
-    TrackPlayer.destroy();
-    setDisplayBtnPlay(true);
-    console.log(isPlaying);
-    console.log(playerState);
     TrackPlayer.add([track]);
-
     TrackPlayer.play();
-    setDisplayBtnPlay(false);
+
   };
 
   const reset = async () => {
@@ -72,14 +65,12 @@ const Player = () => {
     TrackPlayer.destroy();
     TrackPlayer.add([track]);
     TrackPlayer.play();
-    setDisplayBtnPlay(true);
   };
 
   const pause = () => {
     TrackPlayer.pause();
     console.log(isPlaying);
     console.log(playerState);
-    setDisplayBtnPlay(true);
   };
 
   return (
