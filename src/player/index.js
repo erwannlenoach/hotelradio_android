@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import TrackPlayer, {
   useTrackPlayerEvents,
   TrackPlayerEvents,
@@ -36,7 +36,7 @@ const Player = () => {
     date: '2014-05-20T07:00:00+00:00',
     artwork:
       'https://hotelradioparis.com/wp-content/uploads/2021/03/LogoELE.png',
-    duration: 402, // Duration in seconds
+    duration: 402
   };
 
   TrackPlayer.updateOptions({
@@ -93,7 +93,7 @@ const Player = () => {
       </View>
       <View style={styles.liveView}>
         <Button
-          style={styles.button}
+          style={styles.buttonLive}
           title="Live"
           color="#841584"
           onPress={reset}
@@ -114,9 +114,12 @@ const styles = StyleSheet.create({
     color: 'white',
     position: 'absolute',
   },
-  buttonLive: {
+  liveView: {
     paddingTop: 10,
-  },
+    paddingLeft: 10,
+    paddingRight: 10,
+    },
+  
   buttonView: {
     margin: 10,
     height: 100,

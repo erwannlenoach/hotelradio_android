@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   centerdiv: {
     justifyContent: 'center',
     margin: 100,
-    flex: 3,
+    flex: 4,
     width: 300,
   },
   lowerdiv: {

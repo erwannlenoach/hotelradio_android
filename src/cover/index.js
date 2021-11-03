@@ -3,8 +3,7 @@ import {View, Image, StyleSheet}  from 'react-native';
 
 const Cover = () => {
  
-  const [url, setUrl] = useState(
-    'https://hotelradioparis.com/wp-content/uploads/2021/03/LogoELE.png');
+  const [url, setUrl] = useState(null);
 
   useEffect(() => {
     myFetch();
@@ -13,7 +12,6 @@ const Cover = () => {
 
   async function myFetch() {
     const cheerio = require('react-native-cheerio');
-
     let response = await fetch('https://hotelradioparis.com/');
     let text = await response.text();
     const $ = cheerio.load(text);
@@ -26,7 +24,7 @@ const Cover = () => {
     <View style={styles.container}>
    <Image style={styles.image}
         source={{
-          uri: url,
+        uri: url,
         }}
         opacity={0.6}
       />
@@ -39,6 +37,7 @@ const styles = StyleSheet.create({
     flex: 4,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor:'grey'
   },
   playBtn: {
     padding: 20,
