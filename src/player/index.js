@@ -62,7 +62,7 @@ const Player = () => {
   const reset = async () => {
     console.log(isPlaying);
     TrackPlayer.stop();
-    TrackPlayer.destroy();
+  //  TrackPlayer.destroy();
     TrackPlayer.add([track]);
     TrackPlayer.play();
   };
@@ -93,9 +93,9 @@ const Player = () => {
       </View>
       <View style={styles.liveView}>
         <Button
-          style={styles.buttonLive}
+          style={styles.liveButton}
           title="Live"
-          color="#841584"
+          
           onPress={reset}
         />
       </View>
@@ -118,6 +118,9 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingLeft: 10,
     paddingRight: 10,
+    },
+    liveButton: {
+      color: '#99E8F4'
     },
   
   buttonView: {

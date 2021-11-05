@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     flex: 4,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor:'grey'
+    backgroundColor:'lightgrey'
   },
   playBtn: {
     padding: 20,

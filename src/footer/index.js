@@ -25,11 +25,15 @@ const styles = StyleSheet.create({
     color: "white",
   },
   footerView: {
+    paddingTop: 10,
     display: "flex",
     flexDirection: "row",
     flex: 1,
     alignItems: "center",
     justifyContent: "space-evenly",
+
+    
+    
   },
     
   
