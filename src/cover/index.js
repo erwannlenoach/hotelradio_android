@@ -37,7 +37,11 @@ const styles = StyleSheet.create({
     flex: 4,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor:'lightgrey'
+    backgroundColor:'grey',
+    borderRadius: 10,
+    borderColor: 'white',
+    borderWidth: 2,
+    borderStyle: 'solid'
   },
   playBtn: {
     padding: 20,
@@ -47,6 +51,9 @@ const styles = StyleSheet.create({
     flex: 3,
     justifyContent: 'center',
     margin:0,
+    borderWidth: 2,
+    borderColor: 'white',
+    borderRadius: 10,
 
   },
 });

@@ -56,13 +56,11 @@ const Player = () => {
   const start = () => {
     TrackPlayer.add([track]);
     TrackPlayer.play();
-
   };
 
   const reset = async () => {
     console.log(isPlaying);
     TrackPlayer.stop();
-  //  TrackPlayer.destroy();
     TrackPlayer.add([track]);
     TrackPlayer.play();
   };
@@ -95,7 +93,6 @@ const Player = () => {
         <Button
           style={styles.liveButton}
           title="Live"
-          
           onPress={reset}
         />
       </View>
