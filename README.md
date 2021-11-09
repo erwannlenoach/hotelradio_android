@@ -1,4 +1,4 @@
-# Hotel Radio App for Android 
+# Hotel Radio App - Android 
 
 Freelance project of a web radio app for Hotel Radio Paris, a Parisian independant radio.
 
