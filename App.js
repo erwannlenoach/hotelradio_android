@@ -47,12 +47,12 @@ const styles = StyleSheet.create({
   centerdiv: {
     justifyContent: 'center',
     margin: 100,
-    flex: 4,
+    flex: 10,
     width: 300,
   },
   lowerdiv: {
     flexDirection: 'row',
-    flex: 1,
+    flex: 2,
     backgroundColor: '#99E8F4',
     paddingBottom: 20,
     marginBottom: 0,

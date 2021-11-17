@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import TrackPlayer, {
   useTrackPlayerEvents,
   TrackPlayerEvents,
   STATE_PLAYING,
 } from 'react-native-track-player';
-import {View, StyleSheet, Button} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {faPlay, faPause} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
@@ -14,7 +14,13 @@ const events = [
 ];
 
 const Player = () => {
-  const [playerState, setPlayerState] = useState(null);
+  const [playerState, setPlayerState] = useState(false);
+  const [titleShow, setTitleShow] = useState(null);
+
+  useEffect(() => {
+    myFetch();
+  });
+
 
   useTrackPlayerEvents(events, event => {
     if (event.type === TrackPlayerEvents.PLAYBACK_ERROR) {
@@ -27,15 +33,25 @@ const Player = () => {
 
   const isPlaying = playerState === STATE_PLAYING;
 
+  async function myFetch() {
+    const cheerio = require('react-native-cheerio');
+    let response = await fetch('https://hotelradioparis.com/radio/');
+    let text = await response.text();
+    const $ = cheerio.load(text);
+    let html = $('h4')
+    let title = html.text().trim()
+    setTitleShow(`${title}`);
+  }
+
   let track = {
     url: 'https://radio2.pro-fhi.net/radio/9111/stream.mp3',
-    title: 'Hotel Radio',
+    title: titleShow === null ? "" : `${titleShow}`,
     artist: 'Hotel Radio',
-    album: 'Hotel Radio',
+    album: null,
     genre: 'Hip-Hop, Electro',
     date: '2014-05-20T07:00:00+00:00',
     artwork:
-      'https://hotelradioparis.com/wp-content/uploads/2021/03/LogoELE.png',
+    require('../../assets/img/logo_hotel_radio_square.jpeg'),
     duration: 402
   };
 
@@ -58,17 +74,10 @@ const Player = () => {
     TrackPlayer.play();
   };
 
-  const reset = async () => {
-    console.log(isPlaying);
-    TrackPlayer.stop();
-    TrackPlayer.add([track]);
-    TrackPlayer.play();
-  };
-
   const pause = () => {
-    TrackPlayer.pause();
-    console.log(isPlaying);
-    console.log(playerState);
+    TrackPlayer.stop();
+    TrackPlayer.reset();
+    TrackPlayer.add([track]);
   };
 
   return (
@@ -87,13 +96,6 @@ const Player = () => {
           style={styles.Btn}
           onPress={pause}
           display={isPlaying ? 'flex' : 'none'}
-        />
-      </View>
-      <View style={styles.liveView}>
-        <Button
-          style={styles.liveButton}
-          title="Live"
-          onPress={reset}
         />
       </View>
     </View>

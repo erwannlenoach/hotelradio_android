@@ -27,8 +27,6 @@ const Cover = () => {
     );
     
     let time = $(timeHTML).text().trim().replace('access_time', '')
-    console.log(time)
-
     setUrl(src);
     setTitle(title);
     setTime(time);
@@ -41,7 +39,7 @@ const Cover = () => {
         source={{
           uri: url,
         }}
-        opacity={0.9}
+        opacity={0.7}
       />
       <SafeAreaView style={styles.textView}>
         <Text style={styles.text}>NOW ON AIR</Text>
