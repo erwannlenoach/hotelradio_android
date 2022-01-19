@@ -1,5 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {View, Image, StyleSheet, Text, SafeAreaView, Button} from 'react-native';
+import {
+  View,
+  Image,
+  StyleSheet,
+  Text,
+  SafeAreaView,
+} from 'react-native';
 
 const Cover = () => {
   const [url, setUrl] = useState(null);
@@ -25,8 +31,8 @@ const Cover = () => {
     let timeHTML = $.html(
       '[class="proradio-customplayer__time proradio-itemmetas"]',
     );
-    
-    let time = $(timeHTML).text().trim().replace('access_time', '')
+
+    let time = $(timeHTML).text().trim().replace('access_time', '');
     setUrl(src);
     setTitle(title);
     setTime(time);
@@ -34,13 +40,16 @@ const Cover = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.imageContainer}>
       <Image
         style={styles.image}
         source={{
           uri: url,
         }}
         opacity={0.7}
+        resizeMode="contain"
       />
+       </View>
       <SafeAreaView style={styles.textView}>
         <Text style={styles.text}>NOW ON AIR</Text>
         <Text style={styles.textTitle}>{title}</Text>
@@ -55,49 +64,45 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'grey',
     borderRadius: 10,
     borderColor: 'white',
-    borderWidth: 1,
+    borderWidth:3,
     borderStyle: 'solid',
+  
   },
- 
+
   textView: {
-flex: 1,
-  flexDirection: 'column',
+    flex: 1,
+    flexDirection: 'column',
     right: 0,
     position: 'absolute',
     bottom: 10,
     left: 0,
     textAlign: 'left',
     marginLeft: 10,
-
   },
   text: {
     color: 'white',
-    fontSize: 10, 
+    fontSize: 10,
   },
   textTitle: {
     color: 'white',
     fontSize: 20,
     fontWeight: 'bold',
-    textTransform: 'capitalize'  
+    textTransform: 'capitalize',
   },
   textTime: {
     color: 'white',
     fontSize: 10,
   },
-
-
+imageContainer: {
+  width: 250,
+  height:250
+},
   image: {
-    width: 300,
-    flex: 3,
+    flex: 1,
     justifyContent: 'center',
     margin: 0,
-    borderRadius: 10,
-    borderColor: 'white',
-    borderWidth: 1,
-    borderStyle: 'solid',
   },
 });
 

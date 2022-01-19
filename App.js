@@ -40,22 +40,18 @@ const styles = StyleSheet.create({
   },
   upperdiv: {
     flex: 1,
-    paddingTop: 100,
     alignItems: 'center',
     justifyContent: 'center',
   },
   centerdiv: {
     justifyContent: 'center',
-    margin: 100,
-    flex: 10,
-    width: 300,
+    flex: 1,
   },
   lowerdiv: {
     flexDirection: 'row',
-    flex: 2,
-    backgroundColor: '#99E8F4',
-    paddingBottom: 20,
-    marginBottom: 0,
+    flex: 1,
+    alignItems: 'flex-end',
+    backgroundColor:  '#F4A599'
   },
   logo: {
     height: 150,
